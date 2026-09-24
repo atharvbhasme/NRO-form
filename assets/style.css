@@ -1,0 +1,199 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background: #525659;
+  color: #222;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: #0d3b66;
+  color: #fff;
+  padding: 10px 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.35);
+}
+
+.topbar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  max-width: 940px;
+  margin: 0 auto;
+}
+
+.topbar strong { font-size: 15px; }
+.topbar .hint { font-size: 12px; opacity: .85; }
+
+.pagenav {
+  max-width: 940px;
+  margin: 6px auto 0;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pagenav a {
+  color: #cfe4ff;
+  text-decoration: none;
+  font-size: 12px;
+  border: 1px solid rgba(255,255,255,.3);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+.pagenav a:hover { background: rgba(255,255,255,.15); }
+
+.pagenav .build {
+  margin-left: auto;
+  font-size: 11px;
+  opacity: .6;
+  align-self: center;
+}
+
+.loadwarn {
+  background: #b3261e;
+  color: #fff;
+  padding: 10px 16px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.page-wrap {
+  padding: 24px 16px 60px;
+  overflow-x: auto;
+}
+
+.page {
+  position: relative;
+  margin: 0 auto 28px;
+  background: #fff;
+  box-shadow: 0 4px 18px rgba(0,0,0,.45);
+}
+
+.page img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  pointer-events: none;
+}
+
+.fld {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  border-radius: 1px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000;
+}
+
+.txt {
+  border: none;
+  background: rgba(255, 238, 120, 0.30);
+  padding: 0 3px;
+  line-height: 1.1;
+}
+.txt.comb {
+  letter-spacing: 0.5px;
+}
+.txt.ln {
+  background: rgba(255, 238, 120, 0.22);
+}
+.txt:hover { background: rgba(255, 232, 90, 0.55); }
+.txt:focus {
+  outline: 2px solid #1565c0;
+  background: #fffbd1;
+  z-index: 5;
+}
+
+/* Outlined so every tick box is obvious even where the form prints a plain
+   white square; ticking shows the same X that is drawn into the PDF. */
+.chk {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1.4px solid #1565c0;
+  border-radius: 2px;
+  background: rgba(255, 238, 120, 0.25);
+  cursor: pointer;
+  position: relative;
+}
+.chk:hover { background: rgba(21, 101, 192, 0.22); }
+.chk:checked { background: rgba(21, 101, 192, 0.12); }
+.chk:checked::after {
+  content: "\2715";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0d2b52;
+  font-size: 0.82em;
+  line-height: 1;
+  font-weight: 800;
+}
+.chk:focus-visible { outline: 2px solid #1565c0; }
+
+.footer-actions {
+  max-width: 900px;
+  margin: 20px auto 0;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  font-size: 15px;
+  padding: 12px 22px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-primary { background: #1565c0; color: #fff; }
+.btn-primary:hover { background: #0d47a1; }
+.btn-secondary { background: #e0e0e0; color: #333; }
+.btn-secondary:hover { background: #cacaca; }
+
+.fab {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 30;
+  background: #1565c0;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 14px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(0,0,0,.4);
+  cursor: pointer;
+}
+.fab:hover { background: #0d47a1; }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%);
+  background: #222;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  z-index: 50;
+  box-shadow: 0 4px 14px rgba(0,0,0,.4);
+}
+.toast.error { background: #b3261e; }
+.toast.success { background: #1b5e20; }
+
+@media (max-width: 700px) {
+  .topbar strong { font-size: 13px; }
+  .topbar .hint { display: none; }
+}
