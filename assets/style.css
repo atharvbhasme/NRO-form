@@ -47,6 +47,12 @@ body {
 }
 .pagenav a:hover { background: rgba(255,255,255,.15); }
 
+.pagenav .swap {
+  background: rgba(255, 255, 255, .18);
+  font-weight: 600;
+  color: #fff;
+}
+
 .pagenav .build {
   margin-left: auto;
   font-size: 11px;
@@ -117,23 +123,18 @@ body {
   -webkit-appearance: none;
   border: 1.4px solid #1565c0;
   border-radius: 2px;
-  background: rgba(255, 238, 120, 0.25);
+  background-color: rgba(255, 238, 120, 0.25);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 96% 96%;
   cursor: pointer;
   position: relative;
 }
-.chk:hover { background: rgba(21, 101, 192, 0.22); }
-.chk:checked { background: rgba(21, 101, 192, 0.12); }
-.chk:checked::after {
-  content: "\2715";
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #0d2b52;
-  font-size: 0.82em;
-  line-height: 1;
-  font-weight: 800;
+.chk:hover { background-color: rgba(21, 101, 192, 0.22); }
+/* same tick that gets drawn into the PDF */
+.chk:checked {
+  background-color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3.4 13.6 L9.1 19.4 L20.6 5.8' fill='none' stroke='%23000000' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 .chk:focus-visible { outline: 2px solid #1565c0; }
 

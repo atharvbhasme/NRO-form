@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Axis Bank - NRI Scheme CIF Conversion cum ReKYC Form - Fillable</title>
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background: #525659;
+  color: #222;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: #0d3b66;
+  color: #fff;
+  padding: 10px 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.35);
+}
+
+.topbar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  max-width: 940px;
+  margin: 0 auto;
+}
+
+.topbar strong { font-size: 15px; }
+.topbar .hint { font-size: 12px; opacity: .85; }
+
+.pagenav {
+  max-width: 940px;
+  margin: 6px auto 0;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pagenav a {
+  color: #cfe4ff;
+  text-decoration: none;
+  font-size: 12px;
+  border: 1px solid rgba(255,255,255,.3);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+.pagenav a:hover { background: rgba(255,255,255,.15); }
+
+.pagenav .swap {
+  background: rgba(255, 255, 255, .18);
+  font-weight: 600;
+  color: #fff;
+}
+
+.pagenav .build {
+  margin-left: auto;
+  font-size: 11px;
+  opacity: .6;
+  align-self: center;
+}
+
+.loadwarn {
+  background: #b3261e;
+  color: #fff;
+  padding: 10px 16px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.page-wrap {
+  padding: 24px 16px 60px;
+  overflow-x: auto;
+}
+
+.page {
+  position: relative;
+  margin: 0 auto 28px;
+  background: #fff;
+  box-shadow: 0 4px 18px rgba(0,0,0,.45);
+}
+
+.page img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  pointer-events: none;
+}
+
+.fld {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  border-radius: 1px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000;
+}
+
+.txt {
+  border: none;
+  background: rgba(255, 238, 120, 0.30);
+  padding: 0 3px;
+  line-height: 1.1;
+}
+.txt.comb {
+  letter-spacing: 0.5px;
+}
+.txt.ln {
+  background: rgba(255, 238, 120, 0.22);
+}
+.txt:hover { background: rgba(255, 232, 90, 0.55); }
+.txt:focus {
+  outline: 2px solid #1565c0;
+  background: #fffbd1;
+  z-index: 5;
+}
+
+/* Outlined so every tick box is obvious even where the form prints a plain
+   white square; ticking shows the same X that is drawn into the PDF. */
+.chk {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1.4px solid #1565c0;
+  border-radius: 2px;
+  background-color: rgba(255, 238, 120, 0.25);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 96% 96%;
+  cursor: pointer;
+  position: relative;
+}
+.chk:hover { background-color: rgba(21, 101, 192, 0.22); }
+/* same tick that gets drawn into the PDF */
+.chk:checked {
+  background-color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3.4 13.6 L9.1 19.4 L20.6 5.8' fill='none' stroke='%23000000' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+.chk:focus-visible { outline: 2px solid #1565c0; }
+
+.footer-actions {
+  max-width: 900px;
+  margin: 20px auto 0;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  font-size: 15px;
+  padding: 12px 22px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-primary { background: #1565c0; color: #fff; }
+.btn-primary:hover { background: #0d47a1; }
+.btn-secondary { background: #e0e0e0; color: #333; }
+.btn-secondary:hover { background: #cacaca; }
+
+.fab {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 30;
+  background: #1565c0;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 14px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(0,0,0,.4);
+  cursor: pointer;
+}
+.fab:hover { background: #0d47a1; }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%);
+  background: #222;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  z-index: 50;
+  box-shadow: 0 4px 14px rgba(0,0,0,.4);
+}
+.toast.error { background: #b3261e; }
+.toast.success { background: #1b5e20; }
+
+@media (max-width: 700px) {
+  .topbar strong { font-size: 13px; }
+  .topbar .hint { display: none; }
+}
+
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <strong>Axis - NRI Scheme CIF Conversion cum ReKYC</strong>
+    <span class="hint">Type into the boxes and tick the checkboxes, then press
+      <b>Fill PDF &amp; Download</b> at the bottom. A new PDF is created &mdash; the original file is never changed.
+      Signature boxes stay blank for signing by hand.</span>
+  </div>
+  <nav class="pagenav"><a href="#page1">Page 1</a> <a href="#page2">Page 2</a> <a href="#page3">Page 3</a> <a href="#page4">Page 4</a> <a href="#page5">Page 5</a> <a href="#page6">Page 6</a> <a href="#page7">Page 7</a> <a href="#page8">Page 8</a> <a href="#page9">Page 9</a><a class="swap" href="hdfc-index.html">Open HDFC form</a><span class="build">build 20260928-2339</span></nav>
+</header>
+<div id="loadWarn" class="loadwarn" hidden></div>
+
+<main class="page-wrap">
+
+  <section class="page" id="page1" style="position:relative;width:1080px;height:1527.43px;margin:0 auto 28px;">
+    <img src="assets/axis/page1.png?v=20260928-2339" alt="Form page 1" draggable="false"
+         style="display:block;width:1080px;height:1527.43px;">
+    <input type="text" id="p1_c1" class="fld txt comb" maxlength="8" style="position:absolute;left:871.18px;top:110.05px;width:174.84px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c2" class="fld txt comb" maxlength="8" style="position:absolute;left:339.87px;top:141.44px;width:164.56px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c3" class="fld txt comb" maxlength="3" style="position:absolute;left:179.45px;top:200.08px;width:61.70px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c4" class="fld txt comb" maxlength="14" style="position:absolute;left:251.44px;top:200.08px;width:288.00px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c5" class="fld txt comb" maxlength="13" style="position:absolute;left:549.73px;top:200.08px;width:267.43px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c6" class="fld txt comb" maxlength="11" style="position:absolute;left:827.46px;top:200.08px;width:226.30px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c7" class="fld txt comb" maxlength="3" style="position:absolute;left:179.45px;top:256.63px;width:61.70px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c8" class="fld txt comb" maxlength="14" style="position:absolute;left:251.44px;top:256.63px;width:288.00px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c9" class="fld txt comb" maxlength="13" style="position:absolute;left:549.73px;top:256.63px;width:267.43px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c10" class="fld txt comb" maxlength="11" style="position:absolute;left:827.46px;top:256.63px;width:226.30px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c11" class="fld txt comb" maxlength="3" style="position:absolute;left:179.45px;top:310.37px;width:61.70px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c12" class="fld txt comb" maxlength="14" style="position:absolute;left:251.44px;top:310.37px;width:288.00px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c13" class="fld txt comb" maxlength="13" style="position:absolute;left:549.73px;top:310.37px;width:267.43px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c14" class="fld txt comb" maxlength="11" style="position:absolute;left:827.46px;top:310.37px;width:226.30px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c15" class="fld txt comb" maxlength="3" style="position:absolute;left:179.45px;top:359.50px;width:61.70px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c16" class="fld txt comb" maxlength="14" style="position:absolute;left:251.44px;top:359.50px;width:288.00px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c17" class="fld txt comb" maxlength="13" style="position:absolute;left:549.73px;top:359.50px;width:267.43px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c18" class="fld txt comb" maxlength="11" style="position:absolute;left:827.46px;top:359.50px;width:226.30px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c19" class="fld txt comb" maxlength="3" style="position:absolute;left:179.45px;top:408.36px;width:61.70px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c20" class="fld txt comb" maxlength="14" style="position:absolute;left:251.44px;top:408.36px;width:288.00px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c21" class="fld txt comb" maxlength="13" style="position:absolute;left:549.73px;top:408.36px;width:267.43px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c22" class="fld txt comb" maxlength="11" style="position:absolute;left:827.46px;top:408.36px;width:226.30px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c23" class="fld txt comb" maxlength="9" style="position:absolute;left:294.02px;top:451.87px;width:185.15px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c24" class="fld txt comb" maxlength="18" style="position:absolute;left:25.35px;top:735.28px;width:370.28px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c25" class="fld txt comb" maxlength="7" style="position:absolute;left:690.48px;top:736.56px;width:144.00px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c26" class="fld txt comb" maxlength="7" style="position:absolute;left:909.92px;top:736.56px;width:144.00px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c27" class="fld txt comb" maxlength="7" style="position:absolute;left:471.06px;top:737.85px;width:144.00px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c28" class="fld txt comb" maxlength="18" style="position:absolute;left:25.35px;top:763.56px;width:370.28px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c29" class="fld txt comb" maxlength="7" style="position:absolute;left:690.48px;top:764.85px;width:144.00px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c30" class="fld txt comb" maxlength="7" style="position:absolute;left:909.92px;top:764.85px;width:144.00px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c31" class="fld txt comb" maxlength="7" style="position:absolute;left:471.06px;top:766.14px;width:144.00px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c32" class="fld txt comb" maxlength="18" style="position:absolute;left:25.35px;top:791.84px;width:370.28px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c33" class="fld txt comb" maxlength="7" style="position:absolute;left:690.48px;top:793.13px;width:144.00px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c34" class="fld txt comb" maxlength="7" style="position:absolute;left:909.92px;top:793.13px;width:144.00px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c35" class="fld txt comb" maxlength="7" style="position:absolute;left:471.06px;top:794.42px;width:144.00px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c36" class="fld txt comb" maxlength="18" style="position:absolute;left:25.35px;top:820.13px;width:370.28px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c37" class="fld txt comb" maxlength="7" style="position:absolute;left:690.48px;top:821.42px;width:144.00px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c38" class="fld txt comb" maxlength="7" style="position:absolute;left:909.92px;top:821.42px;width:144.00px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c39" class="fld txt comb" maxlength="7" style="position:absolute;left:471.06px;top:822.71px;width:144.00px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c40" class="fld txt comb" maxlength="18" style="position:absolute;left:48.62px;top:997.26px;width:370.30px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c41" class="fld txt comb" maxlength="18" style="position:absolute;left:48.62px;top:1025.54px;width:370.30px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c42" class="fld txt comb" maxlength="18" style="position:absolute;left:48.62px;top:1053.83px;width:370.30px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c43" class="fld txt comb" maxlength="18" style="position:absolute;left:48.62px;top:1082.11px;width:370.30px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c44" class="fld txt comb" maxlength="18" style="position:absolute;left:48.62px;top:1157.21px;width:370.30px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c45" class="fld txt comb" maxlength="18" style="position:absolute;left:683.06px;top:1157.21px;width:370.28px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c46" class="fld txt comb" maxlength="18" style="position:absolute;left:48.62px;top:1185.62px;width:370.30px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_c47" class="fld txt comb" maxlength="18" style="position:absolute;left:683.06px;top:1185.62px;width:370.28px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p1_t48" class="fld txt" maxlength="300" style="position:absolute;left:872.34px;top:142.40px;width:180.45px;height:19.05px;font-size:12.57px;"><input type="text" id="p1_t49" class="fld txt ln" maxlength="200" style="position:absolute;left:28.96px;top:145.18px;width:112.34px;height:16.69px;font-size:12.50px;"><input type="checkbox" id="p1_c50" class="fld chk" style="position:absolute;left:38.52px;top:293.41px;width:20.56px;height:20.56px;font-size:20.97px;"><input type="checkbox" id="p1_c51" class="fld chk" style="position:absolute;left:109.89px;top:293.41px;width:20.56px;height:20.56px;font-size:20.97px;"><input type="checkbox" id="p1_c52" class="fld chk" style="position:absolute;left:38.52px;top:322.20px;width:20.56px;height:20.57px;font-size:20.97px;"><input type="checkbox" id="p1_c53" class="fld chk" style="position:absolute;left:294.02px;top:497.46px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c54" class="fld chk" style="position:absolute;left:356.96px;top:497.46px;width:20.56px;height:20.57px;font-size:20.97px;"><input type="checkbox" id="p1_c55" class="fld chk" style="position:absolute;left:418.66px;top:497.46px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c56" class="fld chk" style="position:absolute;left:477.59px;top:497.46px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c57" class="fld chk" style="position:absolute;left:294.02px;top:543.07px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c58" class="fld chk" style="position:absolute;left:356.96px;top:543.07px;width:20.56px;height:20.57px;font-size:20.97px;"><input type="checkbox" id="p1_c59" class="fld chk" style="position:absolute;left:418.66px;top:543.07px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c60" class="fld chk" style="position:absolute;left:477.59px;top:543.07px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c61" class="fld chk" style="position:absolute;left:294.02px;top:588.66px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c62" class="fld chk" style="position:absolute;left:477.59px;top:588.66px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c63" class="fld chk" style="position:absolute;left:294.02px;top:634.26px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c64" class="fld chk" style="position:absolute;left:477.59px;top:634.26px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c65" class="fld chk" style="position:absolute;left:294.02px;top:669.47px;width:20.57px;height:20.56px;font-size:20.97px;"><input type="checkbox" id="p1_c66" class="fld chk" style="position:absolute;left:314.60px;top:669.47px;width:20.57px;height:20.56px;font-size:20.97px;"><input type="checkbox" id="p1_c67" class="fld chk" style="position:absolute;left:400.72px;top:863.31px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c68" class="fld chk" style="position:absolute;left:421.29px;top:863.31px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c69" class="fld chk" style="position:absolute;left:683.06px;top:863.31px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c70" class="fld chk" style="position:absolute;left:703.42px;top:863.31px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c71" class="fld chk" style="position:absolute;left:1012.48px;top:863.31px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c72" class="fld chk" style="position:absolute;left:1033.05px;top:863.31px;width:20.56px;height:20.57px;font-size:20.97px;"><input type="checkbox" id="p1_c73" class="fld chk" style="position:absolute;left:400.72px;top:890.80px;width:20.57px;height:20.56px;font-size:20.97px;"><input type="checkbox" id="p1_c74" class="fld chk" style="position:absolute;left:421.29px;top:890.80px;width:20.57px;height:20.56px;font-size:20.97px;"><input type="checkbox" id="p1_c75" class="fld chk" style="position:absolute;left:610.52px;top:997.26px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c76" class="fld chk" style="position:absolute;left:676.87px;top:997.26px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c77" class="fld chk" style="position:absolute;left:940.91px;top:997.26px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c78" class="fld chk" style="position:absolute;left:610.52px;top:1025.54px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c79" class="fld chk" style="position:absolute;left:676.87px;top:1025.54px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c80" class="fld chk" style="position:absolute;left:940.91px;top:1025.54px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c81" class="fld chk" style="position:absolute;left:610.52px;top:1053.83px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c82" class="fld chk" style="position:absolute;left:676.87px;top:1053.83px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c83" class="fld chk" style="position:absolute;left:940.91px;top:1053.83px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c84" class="fld chk" style="position:absolute;left:610.52px;top:1082.11px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c85" class="fld chk" style="position:absolute;left:676.87px;top:1082.11px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c86" class="fld chk" style="position:absolute;left:940.91px;top:1082.11px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p1_c87" class="fld chk" style="position:absolute;left:25.35px;top:1270.49px;width:20.56px;height:20.57px;font-size:20.97px;">
+  </section>
+  <section class="page" id="page2" style="position:relative;width:1080px;height:1527.43px;margin:0 auto 28px;">
+    <img src="assets/axis/page2.png?v=20260928-2339" alt="Form page 2" draggable="false"
+         style="display:block;width:1080px;height:1527.43px;">
+    <input type="text" id="p2_c1" class="fld txt comb" maxlength="4" style="position:absolute;left:182.14px;top:165.57px;width:82.28px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c2" class="fld txt comb" maxlength="2" style="position:absolute;left:248.30px;top:350.56px;width:41.22px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c3" class="fld txt comb" maxlength="3" style="position:absolute;left:992.12px;top:350.56px;width:61.70px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c4" class="fld txt comb" maxlength="15" style="position:absolute;left:581.80px;top:356.02px;width:308.57px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c5" class="fld txt comb" maxlength="48" style="position:absolute;left:65.44px;top:723.43px;width:987.42px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c6" class="fld txt comb" maxlength="48" style="position:absolute;left:65.44px;top:754.94px;width:987.42px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c7" class="fld txt comb" maxlength="48" style="position:absolute;left:65.44px;top:786.44px;width:987.42px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c8" class="fld txt comb" maxlength="27" style="position:absolute;left:151.20px;top:814.11px;width:555.43px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c9" class="fld txt comb" maxlength="8" style="position:absolute;left:889.20px;top:814.11px;width:164.57px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c10" class="fld txt comb" maxlength="10" style="position:absolute;left:151.20px;top:849.45px;width:205.70px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c11" class="fld txt comb" maxlength="10" style="position:absolute;left:480.35px;top:849.45px;width:205.70px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c12" class="fld txt comb" maxlength="11" style="position:absolute;left:827.48px;top:849.45px;width:226.30px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c13" class="fld txt comb" maxlength="48" style="position:absolute;left:65.44px;top:928.88px;width:987.42px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c14" class="fld txt comb" maxlength="48" style="position:absolute;left:65.44px;top:960.37px;width:987.42px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c15" class="fld txt comb" maxlength="48" style="position:absolute;left:65.44px;top:991.89px;width:987.42px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c16" class="fld txt comb" maxlength="27" style="position:absolute;left:151.20px;top:1019.56px;width:555.43px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c17" class="fld txt comb" maxlength="8" style="position:absolute;left:889.20px;top:1019.56px;width:164.57px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c18" class="fld txt comb" maxlength="10" style="position:absolute;left:151.20px;top:1054.90px;width:205.70px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c19" class="fld txt comb" maxlength="10" style="position:absolute;left:480.35px;top:1054.90px;width:205.70px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c20" class="fld txt comb" maxlength="11" style="position:absolute;left:827.48px;top:1054.90px;width:226.30px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c21" class="fld txt comb" maxlength="16" style="position:absolute;left:159.37px;top:1145.03px;width:329.15px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c22" class="fld txt comb" maxlength="16" style="position:absolute;left:159.37px;top:1173.41px;width:329.15px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c23" class="fld txt comb" maxlength="16" style="position:absolute;left:159.37px;top:1201.78px;width:329.15px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c24" class="fld txt comb" maxlength="12" style="position:absolute;left:272.52px;top:1328.76px;width:247.07px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c25" class="fld txt comb" maxlength="8" style="position:absolute;left:869.86px;top:1329.33px;width:174.86px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c26" class="fld txt comb" maxlength="10" style="position:absolute;left:270.71px;top:1365.61px;width:205.70px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c27" class="fld txt comb" maxlength="3" style="position:absolute;left:180.70px;top:1396.53px;width:61.70px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c28" class="fld txt comb" maxlength="14" style="position:absolute;left:252.69px;top:1396.53px;width:288.00px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c29" class="fld txt comb" maxlength="13" style="position:absolute;left:550.98px;top:1396.53px;width:267.43px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c30" class="fld txt comb" maxlength="11" style="position:absolute;left:828.71px;top:1396.53px;width:226.30px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c31" class="fld txt comb" maxlength="15" style="position:absolute;left:181.17px;top:1427.57px;width:308.57px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c32" class="fld txt comb" maxlength="15" style="position:absolute;left:746.43px;top:1427.57px;width:308.57px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_c33" class="fld txt comb" maxlength="15" style="position:absolute;left:181.17px;top:1463.13px;width:308.57px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p2_t34" class="fld txt ln" maxlength="200" style="position:absolute;left:826.57px;top:400.65px;width:227.20px;height:16.69px;font-size:12.50px;"><input type="text" id="p2_t35" class="fld txt ln" maxlength="200" style="position:absolute;left:758.30px;top:1145.78px;width:297.31px;height:16.69px;font-size:12.50px;"><input type="text" id="p2_t36" class="fld txt ln" maxlength="200" style="position:absolute;left:758.30px;top:1174.15px;width:297.31px;height:16.69px;font-size:12.50px;"><input type="text" id="p2_t37" class="fld txt ln" maxlength="200" style="position:absolute;left:758.30px;top:1202.53px;width:297.31px;height:16.69px;font-size:12.50px;"><input type="checkbox" id="p2_c38" class="fld chk" style="position:absolute;left:182.14px;top:132.73px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c39" class="fld chk" style="position:absolute;left:346.29px;top:132.73px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c40" class="fld chk" style="position:absolute;left:464.96px;top:132.73px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c41" class="fld chk" style="position:absolute;left:604.65px;top:132.73px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c42" class="fld chk" style="position:absolute;left:727.91px;top:132.73px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c43" class="fld chk" style="position:absolute;left:839.43px;top:132.73px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c44" class="fld chk" style="position:absolute;left:952.66px;top:132.73px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c45" class="fld chk" style="position:absolute;left:147.57px;top:205.87px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c46" class="fld chk" style="position:absolute;left:266.65px;top:205.87px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c47" class="fld chk" style="position:absolute;left:588.63px;top:209.59px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c48" class="fld chk" style="position:absolute;left:688.07px;top:209.59px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c49" class="fld chk" style="position:absolute;left:446.48px;top:210.17px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c50" class="fld chk" style="position:absolute;left:838.73px;top:210.17px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c51" class="fld chk" style="position:absolute;left:147.57px;top:237.45px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c52" class="fld chk" style="position:absolute;left:446.48px;top:237.45px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c53" class="fld chk" style="position:absolute;left:147.57px;top:277.11px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c54" class="fld chk" style="position:absolute;left:248.30px;top:277.11px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c55" class="fld chk" style="position:absolute;left:353.30px;top:277.11px;width:20.56px;height:20.57px;font-size:20.97px;"><input type="checkbox" id="p2_c56" class="fld chk" style="position:absolute;left:446.48px;top:277.11px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c57" class="fld chk" style="position:absolute;left:588.63px;top:277.11px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c58" class="fld chk" style="position:absolute;left:782.95px;top:277.11px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c59" class="fld chk" style="position:absolute;left:918.48px;top:277.11px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c60" class="fld chk" style="position:absolute;left:353.30px;top:307.07px;width:20.56px;height:20.57px;font-size:20.97px;"><input type="checkbox" id="p2_c61" class="fld chk" style="position:absolute;left:147.57px;top:309.19px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c62" class="fld chk" style="position:absolute;left:146.79px;top:399.90px;width:20.57px;height:20.56px;font-size:20.97px;"><input type="checkbox" id="p2_c63" class="fld chk" style="position:absolute;left:249.14px;top:399.90px;width:20.57px;height:20.56px;font-size:20.97px;"><input type="checkbox" id="p2_c64" class="fld chk" style="position:absolute;left:390.85px;top:399.90px;width:20.57px;height:20.56px;font-size:20.97px;"><input type="checkbox" id="p2_c65" class="fld chk" style="position:absolute;left:546.92px;top:399.90px;width:20.57px;height:20.56px;font-size:20.97px;"><input type="checkbox" id="p2_c66" class="fld chk" style="position:absolute;left:658.24px;top:399.90px;width:20.57px;height:20.56px;font-size:20.97px;"><input type="checkbox" id="p2_c67" class="fld chk" style="position:absolute;left:429.59px;top:436.93px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p2_c68" class="fld chk" style="position:absolute;left:450.16px;top:436.93px;width:20.57px;height:20.57px;font-size:20.99px;">
+  </section>
+  <section class="page" id="page3" style="position:relative;width:1080px;height:1527.43px;margin:0 auto 28px;">
+    <img src="assets/axis/page3.png?v=20260928-2339" alt="Form page 3" draggable="false"
+         style="display:block;width:1080px;height:1527.43px;">
+    <input type="text" id="p3_c1" class="fld txt comb" maxlength="20" style="position:absolute;left:27.83px;top:141.57px;width:411.43px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_c2" class="fld txt comb" maxlength="20" style="position:absolute;left:537.90px;top:141.57px;width:411.43px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_c3" class="fld txt comb" maxlength="20" style="position:absolute;left:27.83px;top:189.38px;width:411.43px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_c4" class="fld txt comb" maxlength="20" style="position:absolute;left:537.90px;top:189.38px;width:411.43px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_c5" class="fld txt comb" maxlength="8" style="position:absolute;left:27.83px;top:237.20px;width:164.56px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_c6" class="fld txt comb" maxlength="8" style="position:absolute;left:537.90px;top:237.20px;width:164.56px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_c7" class="fld txt comb" maxlength="8" style="position:absolute;left:28.99px;top:293.77px;width:164.57px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_c8" class="fld txt comb" maxlength="8" style="position:absolute;left:539.06px;top:293.77px;width:164.57px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_c9" class="fld txt comb" maxlength="20" style="position:absolute;left:537.90px;top:356.87px;width:411.43px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_c10" class="fld txt comb" maxlength="15" style="position:absolute;left:210.06px;top:433.89px;width:308.56px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_c11" class="fld txt comb" maxlength="15" style="position:absolute;left:746.20px;top:433.89px;width:308.56px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_c12" class="fld txt comb" maxlength="3" style="position:absolute;left:200.79px;top:850.54px;width:61.72px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_c13" class="fld txt comb" maxlength="14" style="position:absolute;left:272.80px;top:850.54px;width:288.00px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_c14" class="fld txt comb" maxlength="13" style="position:absolute;left:571.08px;top:850.54px;width:267.43px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_c15" class="fld txt comb" maxlength="10" style="position:absolute;left:848.79px;top:850.54px;width:205.70px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_c16" class="fld txt comb" maxlength="3" style="position:absolute;left:200.79px;top:878.59px;width:61.72px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_c17" class="fld txt comb" maxlength="14" style="position:absolute;left:272.80px;top:878.59px;width:288.00px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_c18" class="fld txt comb" maxlength="13" style="position:absolute;left:571.08px;top:878.59px;width:267.43px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_c19" class="fld txt comb" maxlength="10" style="position:absolute;left:848.79px;top:878.59px;width:205.70px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_c20" class="fld txt comb" maxlength="40" style="position:absolute;left:215.79px;top:1046.42px;width:838.27px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_c21" class="fld txt comb" maxlength="8" style="position:absolute;left:458.16px;top:1276.66px;width:174.86px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p3_t22" class="fld txt" maxlength="300" style="position:absolute;left:90.95px;top:644.11px;width:51.63px;height:25.71px;font-size:13.50px;"><input type="text" id="p3_t23" class="fld txt" maxlength="300" style="position:absolute;left:143.27px;top:644.89px;width:301.97px;height:24.49px;font-size:13.50px;"><input type="text" id="p3_t24" class="fld txt" maxlength="300" style="position:absolute;left:750.82px;top:644.89px;width:302.88px;height:24.49px;font-size:13.50px;"><input type="text" id="p3_t25" class="fld txt" maxlength="300" style="position:absolute;left:90.95px;top:669.82px;width:51.63px;height:25.73px;font-size:13.50px;"><input type="text" id="p3_t26" class="fld txt" maxlength="300" style="position:absolute;left:143.27px;top:670.29px;width:301.97px;height:24.49px;font-size:13.50px;"><input type="text" id="p3_t27" class="fld txt" maxlength="300" style="position:absolute;left:447.06px;top:670.29px;width:301.95px;height:24.49px;font-size:13.50px;"><input type="text" id="p3_t28" class="fld txt" maxlength="300" style="position:absolute;left:750.82px;top:670.29px;width:302.88px;height:24.49px;font-size:13.50px;"><input type="text" id="p3_t29" class="fld txt" maxlength="300" style="position:absolute;left:90.95px;top:695.54px;width:51.63px;height:25.71px;font-size:13.50px;"><input type="text" id="p3_t30" class="fld txt" maxlength="300" style="position:absolute;left:143.27px;top:696.59px;width:301.97px;height:23.59px;font-size:13.50px;"><input type="text" id="p3_t31" class="fld txt" maxlength="300" style="position:absolute;left:447.06px;top:696.59px;width:301.95px;height:23.59px;font-size:13.50px;"><input type="text" id="p3_t32" class="fld txt" maxlength="300" style="position:absolute;left:750.82px;top:696.59px;width:302.88px;height:23.59px;font-size:13.50px;"><input type="text" id="p3_t33" class="fld txt ln" maxlength="200" style="position:absolute;left:683.24px;top:993.72px;width:368.75px;height:16.69px;font-size:12.50px;"><input type="checkbox" id="p3_c34" class="fld chk" style="position:absolute;left:210.06px;top:467.43px;width:20.56px;height:20.57px;font-size:20.97px;"><input type="checkbox" id="p3_c35" class="fld chk" style="position:absolute;left:374.92px;top:467.96px;width:20.57px;height:20.56px;font-size:20.97px;"><input type="checkbox" id="p3_c36" class="fld chk" style="position:absolute;left:210.06px;top:499.22px;width:20.56px;height:20.57px;font-size:20.97px;"><input type="checkbox" id="p3_c37" class="fld chk" style="position:absolute;left:374.61px;top:499.22px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p3_c38" class="fld chk" style="position:absolute;left:495.15px;top:499.22px;width:20.56px;height:20.57px;font-size:20.97px;"><input type="checkbox" id="p3_c39" class="fld chk" style="position:absolute;left:71.17px;top:537.83px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p3_c40" class="fld chk" style="position:absolute;left:71.17px;top:570.81px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p3_c41" class="fld chk" style="position:absolute;left:28.56px;top:934.16px;width:15.44px;height:15.42px;font-size:15.73px;"><input type="checkbox" id="p3_c42" class="fld chk" style="position:absolute;left:25.69px;top:1200.95px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p3_c43" class="fld chk" style="position:absolute;left:25.69px;top:1367.08px;width:20.57px;height:20.57px;font-size:20.99px;">
+  </section>
+  <section class="page" id="page4" style="position:relative;width:1080px;height:1527.43px;margin:0 auto 28px;">
+    <img src="assets/axis/page4.png?v=20260928-2339" alt="Form page 4" draggable="false"
+         style="display:block;width:1080px;height:1527.43px;">
+    <input type="text" id="p4_c1" class="fld txt comb" maxlength="14" style="position:absolute;left:435.68px;top:263.62px;width:288.00px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p4_c2" class="fld txt comb" maxlength="16" style="position:absolute;left:252.19px;top:415.04px;width:329.13px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p4_c3" class="fld txt comb" maxlength="8" style="position:absolute;left:661.09px;top:415.04px;width:174.84px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p4_c4" class="fld txt comb" maxlength="7" style="position:absolute;left:909.14px;top:415.04px;width:144.00px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p4_c5" class="fld txt comb" maxlength="3" style="position:absolute;left:178.85px;top:453.08px;width:61.70px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p4_c6" class="fld txt comb" maxlength="14" style="position:absolute;left:250.84px;top:453.08px;width:288.00px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p4_c7" class="fld txt comb" maxlength="13" style="position:absolute;left:549.13px;top:453.08px;width:267.43px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p4_c8" class="fld txt comb" maxlength="11" style="position:absolute;left:826.86px;top:453.08px;width:226.28px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p4_c9" class="fld txt comb" maxlength="12" style="position:absolute;left:178.85px;top:493.85px;width:246.85px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p4_c10" class="fld txt comb" maxlength="13" style="position:absolute;left:549.13px;top:493.85px;width:267.43px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p4_c11" class="fld txt comb" maxlength="5" style="position:absolute;left:950.29px;top:493.85px;width:102.85px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="checkbox" id="p4_c12" class="fld chk" style="position:absolute;left:153.07px;top:263.31px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p4_c13" class="fld chk" style="position:absolute;left:249.17px;top:263.31px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p4_c14" class="fld chk" style="position:absolute;left:153.07px;top:292.90px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p4_c15" class="fld chk" style="position:absolute;left:249.17px;top:292.90px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p4_c16" class="fld chk" style="position:absolute;left:383.85px;top:292.90px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p4_c17" class="fld chk" style="position:absolute;left:497.40px;top:292.90px;width:20.56px;height:20.57px;font-size:20.97px;"><input type="checkbox" id="p4_c18" class="fld chk" style="position:absolute;left:661.67px;top:292.90px;width:20.56px;height:20.57px;font-size:20.97px;"><input type="checkbox" id="p4_c19" class="fld chk" style="position:absolute;left:153.07px;top:324.74px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p4_c20" class="fld chk" style="position:absolute;left:249.17px;top:324.74px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p4_c21" class="fld chk" style="position:absolute;left:27.49px;top:358.83px;width:20.56px;height:20.57px;font-size:20.97px;"><input type="checkbox" id="p4_c22" class="fld chk" style="position:absolute;left:153.23px;top:415.04px;width:20.56px;height:20.57px;font-size:20.97px;"><input type="checkbox" id="p4_c23" class="fld chk" style="position:absolute;left:26.36px;top:535.49px;width:20.56px;height:20.57px;font-size:20.97px;"><input type="checkbox" id="p4_c24" class="fld chk" style="position:absolute;left:1033.71px;top:715.99px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p4_c25" class="fld chk" style="position:absolute;left:493.72px;top:716.06px;width:20.56px;height:20.57px;font-size:20.97px;"><input type="checkbox" id="p4_c26" class="fld chk" style="position:absolute;left:493.72px;top:741.92px;width:20.56px;height:20.57px;font-size:20.97px;"><input type="checkbox" id="p4_c27" class="fld chk" style="position:absolute;left:1033.71px;top:741.84px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p4_c28" class="fld chk" style="position:absolute;left:493.72px;top:770.53px;width:20.56px;height:20.57px;font-size:20.97px;"><input type="checkbox" id="p4_c29" class="fld chk" style="position:absolute;left:1033.71px;top:770.44px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p4_c30" class="fld chk" style="position:absolute;left:493.72px;top:801.21px;width:20.56px;height:20.57px;font-size:20.97px;"><input type="checkbox" id="p4_c31" class="fld chk" style="position:absolute;left:1033.71px;top:801.13px;width:20.57px;height:20.56px;font-size:20.97px;"><input type="checkbox" id="p4_c32" class="fld chk" style="position:absolute;left:493.72px;top:830.98px;width:20.56px;height:20.57px;font-size:20.97px;"><input type="checkbox" id="p4_c33" class="fld chk" style="position:absolute;left:1033.71px;top:830.91px;width:20.57px;height:20.57px;font-size:20.99px;"><input type="checkbox" id="p4_c34" class="fld chk" style="position:absolute;left:493.72px;top:858.03px;width:20.56px;height:20.57px;font-size:20.97px;"><input type="checkbox" id="p4_c35" class="fld chk" style="position:absolute;left:493.72px;top:888.46px;width:20.56px;height:20.57px;font-size:20.97px;">
+  </section>
+  <section class="page" id="page5" style="position:relative;width:1080px;height:1527.43px;margin:0 auto 28px;">
+    <img src="assets/axis/page5.png?v=20260928-2339" alt="Form page 5" draggable="false"
+         style="display:block;width:1080px;height:1527.43px;">
+    <input type="text" id="p5_c1" class="fld txt comb" maxlength="3" style="position:absolute;left:159.71px;top:1309.21px;width:61.72px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p5_c2" class="fld txt comb" maxlength="14" style="position:absolute;left:231.72px;top:1309.21px;width:288.00px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p5_c3" class="fld txt comb" maxlength="13" style="position:absolute;left:530.01px;top:1309.21px;width:267.43px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p5_c4" class="fld txt comb" maxlength="12" style="position:absolute;left:807.72px;top:1309.21px;width:246.85px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p5_c5" class="fld txt comb" maxlength="8" style="position:absolute;left:177.44px;top:1339.09px;width:174.84px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p5_c6" class="fld txt comb" maxlength="12" style="position:absolute;left:527.14px;top:1339.09px;width:246.85px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p5_c7" class="fld txt comb" maxlength="29" style="position:absolute;left:177.44px;top:1377.93px;width:596.55px;height:20.57px;padding-left:0.00px;font-size:13.50px;"><input type="text" id="p5_c8" class="fld txt comb" maxlength="8" style="position:absolute;left:177.44px;top:1412.04px;width:164.56px;height:20.56px;padding-left:0.00px;font-size:13.50px;"><input type="checkbox" id="p5_c9" class="fld chk" style="position:absolute;left:26.82px;top:701.71px;width:20.57px;height:20.57px;font-size:20.99px;">
+  </section>
+  <section class="page" id="page6" style="position:relative;width:1080px;height:1527.43px;margin:0 auto 28px;">
+    <img src="assets/axis/page6.png?v=20260928-2339" alt="Form page 6" draggable="false"
+         style="display:block;width:1080px;height:1527.43px;">
+    
+  </section>
+  <section class="page" id="page7" style="position:relative;width:1080px;height:1527.43px;margin:0 auto 28px;">
+    <img src="assets/axis/page7.png?v=20260928-2339" alt="Form page 7" draggable="false"
+         style="display:block;width:1080px;height:1527.43px;">
+    
+  </section>
+  <section class="page" id="page8" style="position:relative;width:1080px;height:1527.43px;margin:0 auto 28px;">
+    <img src="assets/axis/page8.png?v=20260928-2339" alt="Form page 8" draggable="false"
+         style="display:block;width:1080px;height:1527.43px;">
+    
+  </section>
+  <section class="page" id="page9" style="position:relative;width:1080px;height:1527.43px;margin:0 auto 28px;">
+    <img src="assets/axis/page9.png?v=20260928-2339" alt="Form page 9" draggable="false"
+         style="display:block;width:1080px;height:1527.43px;">
+    
+  </section>
+
+  <div class="footer-actions">
+    <button id="fillBtn" class="btn btn-primary" type="button">Fill PDF &amp; Download</button>
+    <button id="resetBtn" class="btn btn-secondary" type="button">Reset Form</button>
+  </div>
+</main>
+
+<button id="fabBtn" class="fab" type="button" title="Fill PDF &amp; Download">Fill PDF</button>
+<div id="toast" class="toast" hidden></div>
+
+<script>window.FORM_CONFIG = {outputName: "Axis-NRI-ReKYC-Form-FILLED.pdf", draftKey: "axis_draft_21f49ebd3c"};</script>
+<script src="assets/pdf-lib.min.js?v=20260928-2339"></script>
+<script src="assets/axis/fields-data.js?v=20260928-2339"></script>
+<script src="assets/axis/pdf-data.js?v=20260928-2339"></script>
+<script src="assets/fill.js?v=20260928-2339"></script>
+</body>
+</html>

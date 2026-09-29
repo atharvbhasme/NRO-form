@@ -1,10 +1,13 @@
 (function () {
   "use strict";
 
+  // each form page sets this before loading the script
+  const CONFIG = window.FORM_CONFIG || {};
   // Always written to a brand-new file; the source PDF is only ever read.
-  const OUTPUT_NAME = "NRO-Conversion-Form-FILLED.pdf";
-  // bumped with the field layout so a saved draft can never land on renumbered fields
-  const DRAFT_KEY = "nro_form_draft_v3";
+  const OUTPUT_NAME = CONFIG.outputName || "NRO-Conversion-Form-FILLED.pdf";
+  // keyed per form and per field layout, so a saved draft can never land on
+  // another form or on renumbered fields
+  const DRAFT_KEY = CONFIG.draftKey || "nro_form_draft_v3";
 
   function selfCheck() {
     const problems = [];
@@ -53,7 +56,10 @@
   function loadDraft() {
     let data;
     try {
-      data = JSON.parse(localStorage.getItem(DRAFT_KEY) || "{}");
+      let raw = localStorage.getItem(DRAFT_KEY);
+      // carry over a draft saved before this page was split per bank
+      if (!raw && CONFIG.legacyKey) raw = localStorage.getItem(CONFIG.legacyKey);
+      data = JSON.parse(raw || "{}");
     } catch (e) {
       data = {};
     }
@@ -65,14 +71,15 @@
     });
   }
 
-  function clearAll() {
-    if (!confirm("Clear all entered data on this form?")) return;
+  function resetForm() {
+    if (!confirm("Reset the form? Everything you have typed and ticked will be cleared.")) return;
     allFieldEls().forEach((el) => {
       if (el.type === "checkbox") el.checked = false;
       else el.value = "";
     });
     try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
-    toast("All fields cleared.");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    toast("Form reset - all entries cleared.");
   }
 
   function ptBox(f) {
@@ -118,6 +125,27 @@
     safeDrawText(page, text, x, y, size, font);
   }
 
+  // A tick drawn as two round-capped strokes, so it reads as a hand-made check
+  // rather than a font glyph.
+  function drawCheck(page, box, pageHeight) {
+    const { rgb, LineCapStyle } = window.PDFLib;
+    const side = Math.min(box.w, box.h);
+    const cx = box.x0 + box.w / 2;
+    const cy = pageHeight - box.bottom + box.h / 2;
+    const half = side * 0.46;
+    const at = (fx, fy) => ({ x: cx + (fx - 0.5) * 2 * half, y: cy + (fy - 0.5) * 2 * half });
+    const start = at(0.12, 0.54);
+    const knee = at(0.40, 0.20);
+    const end = at(0.90, 0.82);
+    const stroke = {
+      thickness: Math.max(0.7, side * 0.17),
+      color: rgb(0, 0, 0),
+      lineCap: LineCapStyle.Round,
+    };
+    page.drawLine({ start, end: knee, ...stroke });
+    page.drawLine({ start: knee, end, ...stroke });
+  }
+
   async function fillPdf() {
     const btn = document.getElementById("fillBtn");
     const fab = document.getElementById("fabBtn");
@@ -134,7 +162,6 @@
       const { PDFDocument, StandardFonts } = window.PDFLib;
       const pdfDoc = await PDFDocument.load(pdfBytes);
       const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
-      const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
       const pages = pdfDoc.getPages();
 
       Object.keys(data).forEach((pn) => {
@@ -148,15 +175,7 @@
           if (!el) return;
 
           if (f.type === "checkbox") {
-            if (el.checked) {
-              const box = ptBox(f);
-              const size = Math.min(box.w, box.h) * 0.9;
-              const tw = fontBold.widthOfTextAtSize("X", size);
-              const x = box.x0 + (box.w - tw) / 2;
-              const yBottomEdge = pageHeight - box.bottom;
-              const y = yBottomEdge + (box.h - size) / 2 + size * 0.08;
-              safeDrawText(page, "X", x, y, size, fontBold);
-            }
+            if (el.checked) drawCheck(page, ptBox(f), pageHeight);
           } else if (f.type === "comb") {
             const val = (el.value || "").toUpperCase();
             const cells = f.cells || [];
@@ -201,7 +220,7 @@
     loadDraft();
     document.getElementById("fillBtn").addEventListener("click", fillPdf);
     document.getElementById("fabBtn").addEventListener("click", fillPdf);
-    document.getElementById("clearBtn").addEventListener("click", clearAll);
+    document.getElementById("resetBtn").addEventListener("click", resetForm);
 
     let saveTimer = null;
     document.addEventListener("input", (e) => {
